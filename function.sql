@@ -14,6 +14,7 @@ END;
 
 SELECT dbo.GetRealEstateFullAddress(302) AS FullAddress;
 
+DROP FUNCTION GetTopManagingOffice
 
 --Create a function that finds the office that manages the highest number of properties (No parameter required).
 CREATE FUNCTION GetTopManagingOffice()
@@ -25,7 +26,10 @@ RETURNS @Result TABLE (
 AS
 BEGIN
     INSERT INTO @Result
-    SELECT TOP 1 o.OfficeNo, o.City, COUNT(r.RealEstateCode) AS PropertyCount
+    SELECT TOP 1 WITH TIES 
+		o.OfficeNo, 
+		o.City, 
+		COUNT(r.RealEstateCode) AS PropertyCount
     FROM Office o
     JOIN RealEstate r ON o.OfficeNo = r.OfficeNo
     GROUP BY o.OfficeNo, o.City
