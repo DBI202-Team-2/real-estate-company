@@ -32,21 +32,19 @@ GO
 
 -- Create a stored procedure that returns the total percentage of ownership for a given owner 
 CREATE PROCEDURE TotalPercentage
-    @OwnerCode INT
+    @RealEstateCode INT
 AS
 BEGIN
     SELECT 
-        o.OwnerCode, 
-        o.Name,
-        o.Address,
-        o.Phone,
-        SUM(os.Percentage) AS TotalPercentage
-    FROM Ownership os
-    JOIN Owner o ON os.OwnerCode = o.OwnerCode
-    WHERE os.OwnerCode = @OwnerCode
-    GROUP BY o.OwnerCode, o.Name, o.Address, o.Phone
+        SUM(Percentage) AS TotalPercentage
+    FROM Ownership
+	WHERE RealEstateCode = @RealEstateCode;
 END
 GO
+
+SELECT * FROM Ownership
+
+EXEC TotalPercentage 301
 
 -- EXEC AddEmployee '1000', 'Hello', '2010-10-10', 'Ho Chi Minh', '1'
 -- EXEC TotalPercentage '210'

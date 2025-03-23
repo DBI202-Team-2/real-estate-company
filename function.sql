@@ -21,7 +21,7 @@ CREATE FUNCTION GetTopManagingOffice()
 RETURNS @Result TABLE (
     OfficeNo INT,
     City NVARCHAR(50),
-    PropertyCount INT
+    RealEstateCount INT
 )
 AS
 BEGIN
@@ -29,13 +29,11 @@ BEGIN
     SELECT TOP 1 WITH TIES 
 		o.OfficeNo, 
 		o.City, 
-		COUNT(r.RealEstateCode) AS PropertyCount
+		COUNT(r.RealEstateCode) AS RealEstateCount
     FROM Office o
     JOIN RealEstate r ON o.OfficeNo = r.OfficeNo
     GROUP BY o.OfficeNo, o.City
-    ORDER BY PropertyCount DESC;
+    ORDER BY RealEstateCount DESC;
 
     RETURN;
 END;
-
-SELECT * FROM dbo.GetTopManagingOffice();

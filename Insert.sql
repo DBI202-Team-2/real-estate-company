@@ -2,7 +2,7 @@
 -- Query to find all real estate properties in New York
 SELECT *
 FROM RealEstate
-WHERE City = N'Nha Trang';
+WHERE City = N'Hà Nội';
 
 
 -- Count the number of employees in each office
