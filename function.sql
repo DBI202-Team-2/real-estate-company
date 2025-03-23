@@ -1,21 +1,3 @@
---Create a function that retrieves the full address of a real estate property by RealEstateCode (@RealEstateCode INT).
-CREATE FUNCTION GetRealEstateFullAddress (@RealEstateCode INT)
-RETURNS NVARCHAR(500)
-AS
-BEGIN
-    DECLARE @FullAddress NVARCHAR(500)
-
-    SELECT @FullAddress = CONCAT(Street, ', ', City)
-    FROM RealEstate
-    WHERE RealEstateCode = @RealEstateCode
-
-    RETURN @FullAddress
-END;
-
-SELECT dbo.GetRealEstateFullAddress(302) AS FullAddress;
-
-DROP FUNCTION GetTopManagingOffice
-
 --Create a function that finds the office that manages the highest number of properties (No parameter required).
 CREATE FUNCTION GetTopManagingOffice()
 RETURNS @Result TABLE (
